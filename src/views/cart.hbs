@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg bg-dark flex-column">
+    <div class="container py-1 ">
+        <div class="container-fluid d-flex justify-content-between">
+            <a class="navbar-brand text-bg-dark" href="/products">E-commerce - Tu tienda online</a>
+            <a class="btn btn-danger" href="/session/logout"><i class="bi bi-x-circle-fill"></i> Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="navbar navbar-expand-lg bg-light mb-3">
+    <div class="container d-flex align-items-baseline">
+        <a class="nav-link me-auto" href="/products"><i class="bi bi-arrow-left"></i> Back to products</a>
+        <div class="navbar-nav d-flex justify-content-between ">
+            <a class="nav-link" href="/user/{{user}}">Profile</a>
+        </div>
+    </div>
+</div>
+
+<div id="cartWrapper" class="container">
+    <h1>Carrito</h1>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Price (each)</th>
+                <th scope="col">Category</th>
+                <th scope="col">Qty.</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="cart_body">
+            {{#each cart.products}}
+                <tr class="line-{{this.product.id}}">
+                    <td> {{this.product.title}}         </td>
+                    <td> <span class="price-{{this.product.id}}">{{this.product.price}}</span> ARS     </td>
+                    <td> {{this.product.category}}      </td>
+                    <td> <button type="button" pid="{{this.product.id}}" class="addQty btn btn-light border">+</button>
+                            <span pid="{{this.product.id}}" class="qty-{{this.product.id}}" style="padding: 7px;">{{this.quantity}}</span>
+                        <button type="button" pid="{{this.product.id}}" class="minusQty btn btn-light border">-</button></td>
+                    <td><i class="bi bi-trash3-fill btn btn-warning delete" pid="{{this.product.id}}"></i></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-end flex-column">
+        <p class="align-self-baseline"><strong>Total:</strong> <span id="cart_total">{{total}}</span> ARS</p>
+        <div>
+            <button type="button" class="btn btn-danger text-light empty" >Empty Cart</button>
+            <button type="button" class="btn btn-dark text-light purchase" >Complete Purchase</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script src="./../static/js/fetch_request.js"></script>
+<script src="./../static/js/main.js"></script>
